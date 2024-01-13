@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import stripe
+from celery.schedules import crontab
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'users',
     'study',
     'drf_yasg',
+    'django_celery_beat',
     'payment',
 ]
 
@@ -153,3 +156,33 @@ CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com",
 ]
 CORS_ALLOW_ALL_ORIGINS = False
+
+#Settings for Celery
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://localhost:6379'
+# URL-адрес брокера результатов
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# Часовой пояс для работы Celery
+# CELERY_TIMEZONE = "Asia/Almaty"
+CELERY_TIMEZONE = "Europe/Moscow"
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'check': {
+        'task': 'learning.tasks.check',
+        'schedule': crontab(minute='50', hour='23'),
+    },
+    'last_login': {
+        'task': 'learning.tasks.last_login_user',
+        'schedule': crontab(minute='0', hour='0'),
+    }
+}
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'AisShakh@yandex.ru'
+EMAIL_HOST_PASSWORD = 'qrwtvhbipvgvzcyh'
+EMAIL_USE_SSL = True

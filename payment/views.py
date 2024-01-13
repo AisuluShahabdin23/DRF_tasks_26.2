@@ -13,8 +13,8 @@ class PaymentListView(ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['paid_course', 'paid_lesson', 'method_payment']  # Фильтрация по курсу, уроку и способу оплаты
-    ordering_fields = ['date_of_payment']  # Сортировка по дате оплаты
+    search_fields = ['paid_course', 'paid_lesson', 'method_payment']
+    ordering_fields = ['date_of_payment']
 
 
 class PaymentCreateAPIView(CreateAPIView):

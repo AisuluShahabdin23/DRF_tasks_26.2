@@ -172,11 +172,11 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     'check': {
-        'task': 'learning.tasks.check',
+        'task': 'study.tasks.check',
         'schedule': crontab(minute='50', hour='23'),
     },
     'last_login': {
-        'task': 'learning.tasks.last_login_user',
+        'task': 'study.tasks.last_login_user',
         'schedule': crontab(minute='0', hour='0'),
     }
 }

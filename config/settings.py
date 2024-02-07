@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-@)4&4i00(wwxp^6&wdvq5k8x-*_^_l#0at7fh475$v@g(b*(y0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,7 +89,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'drf_part2',
         'USER': 'postgres',
-        'PASSWORD': 19290
+        'PASSWORD': 19290,
+        'PORT': 5432,
+        'HOST': 'postgreSQL',
     }
 }
 
@@ -159,7 +161,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 #Settings for Celery
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 # URL-адрес брокера результатов
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 # Часовой пояс для работы Celery
